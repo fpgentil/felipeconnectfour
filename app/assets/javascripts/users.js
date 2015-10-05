@@ -1,9 +1,12 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 
+
 $( document ).ready(function() {
-  var user_id = $("#user-id").val();
   var message_field = $("#messagge");
+  var user_id = $("#user-id").val();
+
+  startRefresh();
 
   $('#editable-row tr td').focusin(function(e){
     $(this).text("");
@@ -20,7 +23,7 @@ $( document ).ready(function() {
       $('#message').text("Message: Wrong value");
       $(this).text("[]");
     } else {
-      var column = $(this).attr('id');
+      var column = $(this).attr('id').split('-')[1];
       var value = user_id;
       $.ajax({
         type: "POST",
@@ -29,7 +32,7 @@ $( document ).ready(function() {
         data: {column: column, value: value},
       }).done(function(data) {
         $("#cell-" + data["row"] + "-" + data["column"]).html(data["value"]);
-        $(this).text("[]");
+        $('#editable-'+data["column"]).text("[]");
       }).fail(function() {
         $('#message').text("Message: Failed to play");
       });
@@ -37,3 +40,33 @@ $( document ).ready(function() {
   });
 });
 
+function startRefresh() {
+    setTimeout(startRefresh,3000);
+    $.ajax({
+      type: "GET",
+      url: "/users/" + $("#user-id").val(),
+      dataType: 'json',
+      data: {id: $("#user-id").val()},
+    }).done(function(data) {
+      if (data["turn"] == true){
+        $('#who-moves').text("Your turn");
+        for(var i = 0; i < 7; i++){
+          $('#editable-'+i).attr("contenteditable", "true");
+        }
+      } else {
+        $('#who-moves').text("Other user turn");
+        for(var i = 0; i < 7; i++){
+          $('#editable-'+i).attr("contenteditable", "false");
+        }
+      }
+
+      // update table values
+      for(var i = 0; i < 6; i++){ // column
+        for(var j = 0; j < 7; j++){ // rows
+          $('#cell-'+i+'-'+j).text(data["matrix"][i][j]);
+        }
+      }
+    }).fail(function() {
+      $('#message').text("Message: Failed to update");
+    });
+}
