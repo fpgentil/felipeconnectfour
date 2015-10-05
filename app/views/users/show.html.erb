@@ -1,0 +1,23 @@
+<input type="hidden" id="user-id" value="<%= @user.id%>">
+<div>
+  <p>Hello, <%= @user.id %>!</p>
+  <span id='who-moves'><%= @turn ? 'Your turn' : 'Other user turn' %></span>
+</div>
+
+<br/>
+
+<table id="table-game" border="1" style="width:100%">
+  <% @game.board.matrix.each do |row| %>
+    <tr>
+      <% row.each do |column| %>
+        <% if column == "0" && @turn %>
+          <td contenteditable='true'><%= column %></td>
+        <% else %>
+          <td><%= column %></td>
+        <% end %>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
+
+<span id='message'>Message: </span>
