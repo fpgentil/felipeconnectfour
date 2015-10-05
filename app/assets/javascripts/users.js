@@ -5,22 +5,34 @@ $( document ).ready(function() {
   var user_id = $("#user-id").val();
   var message_field = $("#messagge");
 
-  $('#table-game tr td').focusin(function(e){
+  $('#editable-row tr td').focusin(function(e){
     $(this).text("");
   });
 
-  $('#table-game tr td').focusout(function(e){
+  $('#editable-row tr td').focusout(function(e){
     var value = $(this).html();
     if (value == ""){
-      $(this).text("0");
+      $(this).text("[]");
       return;
     }
 
     if ((value != user_id) && (value != "0")){
       $('#message').text("Message: Wrong value");
-      $(this).text("0");
+      $(this).text("[]");
     } else {
-      // post update board
+      var column = $(this).attr('id');
+      var value = user_id;
+      $.ajax({
+        type: "POST",
+        url: "/games/1/update_board",
+        dataType: 'json',
+        data: {column: column, value: value},
+      }).done(function(data) {
+        $("#cell-" + data["row"] + "-" + data["column"]).html(data["value"]);
+        $(this).text("[]");
+      }).fail(function() {
+        $('#message').text("Message: Failed to play");
+      });
     }
   });
 });

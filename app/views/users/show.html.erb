@@ -6,15 +6,25 @@
 
 <br/>
 
-<table id="table-game" border="1" style="width:100%">
-  <% @game.board.matrix.each do |row| %>
+<table id='editable-row' border="1" style="width: 800px;">
+  <tr>
+    <td id='0' contenteditable=<%= @turn.to_s %>>[]</td>
+    <td id='1' contenteditable=<%= @turn.to_s %>>[]</td>
+    <td id='2' contenteditable=<%= @turn.to_s %>>[]</td>
+    <td id='3' contenteditable=<%= @turn.to_s %>>[]</td>
+    <td id='4' contenteditable=<%= @turn.to_s %>>[]</td>
+    <td id='5' contenteditable=<%= @turn.to_s %>>[]</td>
+    <td id='6' contenteditable=<%= @turn.to_s %>>[]</td>
+  </tr>
+</table>
+
+<br/>
+
+<table id="table-game" border="1" style="width: 800px;">
+  <% @game.board.matrix.each_with_index do |row, index_row| %>
     <tr>
-      <% row.each do |column| %>
-        <% if column == "0" && @turn %>
-          <td contenteditable='true'><%= column %></td>
-        <% else %>
-          <td><%= column %></td>
-        <% end %>
+      <% row.each_with_index do |column, index_column| %>
+        <td id="cell-<%= [index_row, index_column].join('-') %>"><%= column %></td>
       <% end %>
     </tr>
   <% end %>
