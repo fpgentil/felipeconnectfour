@@ -66,6 +66,18 @@ function startRefresh() {
           $('#cell-'+i+'-'+j).text(data["matrix"][i][j]);
         }
       }
+
+      if (data["winner"] != null){
+        if (data["winner"] == $("#user-id").val()){
+          $('#message').text("Message: You win :)");
+          $("#restart").attr("hidden", false);
+        } else {
+          $('#message').text("Message: You lose :(");
+        }
+        for(var i = 0; i < 7; i++){
+          $('#editable-'+i).attr("contenteditable", "false");
+        }
+      }
     }).fail(function() {
       $('#message').text("Message: Failed to update");
     });

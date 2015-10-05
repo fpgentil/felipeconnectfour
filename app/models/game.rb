@@ -4,4 +4,10 @@ class Game < ActiveRecord::Base
   belongs_to :winner, class_name: 'User'
   belongs_to :last_move_user, class_name: 'User'
   has_one :board
+
+  def restart!
+    self.winner = nil
+    self.last_move_user_id = 2
+    self.save!
+  end
 end

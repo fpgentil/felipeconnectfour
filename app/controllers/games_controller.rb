@@ -1,4 +1,10 @@
 class GamesController < ApplicationController
+  def restart
+    Game.first.restart!
+    Board.first.restart!
+    redirect_to :back
+  end
+
   def update_board
     game = Game.find(params[:game_id])
     board = game.board
@@ -21,10 +27,12 @@ class GamesController < ApplicationController
 
     board.update_attributes(matrix: matrix)
     game.update_attributes(last_move_user_id: params[:value]) if moved
+
     response = { 'status': 'success' }
     response['column'] = column
     response['row'] = row_index
     response['value'] = value
+    response['winner'] = board.winner
 
     respond_to do |format|
       format.js { render json: response }
