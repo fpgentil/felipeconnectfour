@@ -1,28 +1,26 @@
-== README
+== FelipeConnectFour
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+We ask that you complete the following programming test so that we can evaluate your development skills. You may choose to use Javascript, Ruby, Python or PHP to accomplish the following task.
 
-Things you may want to cover:
+Please keep track of the time it takes you to solve this problem.  As soon as you have submitted your solution, we will review the code and send our feedback.
 
-* Ruby version
+Develop the classic game Connect Four:  http://en.wikipedia.org/wiki/Connect_Four.
+The app should allow two users to play. Users can be hard coded (no need to develop a sign up & login).
 
-* System dependencies
+User 1 will access their board at /games/1 and player two will access his board at /games/2.
 
-* Configuration
+There should be a simple UI, but it does not need to be fancy.
 
-* Database creation
+Each time the user makes a move, only the relevant portion of the page should be refreshed. This should be accomplished using AJAX.
 
-* Database initialization
+You may use any third party Javascript, Ruby, Python or PHP framework, library or DB.
 
-* How to run the test suite
+You do not need to fully complete the challenge. We will evaluate the code and time spent working on the problem.
 
-* Services (job queues, cache servers, search engines, etc.)
+We do not expect to see perfect code. What we want to see is how well you handle yourself given the time you spend on the problem, how you think, and how you prioritize when time is insufficient to solve the problem.
 
-* Deployment instructions
+Aside from coding the app, we also ask that you deploy it,either heroku.com, aws.amazon.com,digitalocean.com, engineyard.com, openshift or any platform of your preference, and send us the url so that we may see the app in action.
 
-* ...
+Please place your code in a public Github repo so we can review it.
 
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Please don't take more than 5 hours to accomplish this task, and reply to all when you are finished.
